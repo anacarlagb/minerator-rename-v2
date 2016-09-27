@@ -1,6 +1,6 @@
 package historic;
 
-import historic.minerator.MineratorHistoric;
+import historic.minerator.HistoricWriter;
 import historic.minerator.rename.method.MethodHistoric;
 
 import java.io.BufferedReader;
@@ -29,7 +29,7 @@ public class HistoricProject {
 
     public static void main(String[] args) {
 
-        MineratorHistoric minner = new MineratorHistoric();
+        HistoricWriter minner = new HistoricWriter();
         HistoricProject project = new HistoricProject();
 
         BufferedReader br = null;

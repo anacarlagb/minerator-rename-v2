@@ -1,5 +1,6 @@
 package historic.minerator;
 
+import historic.HistoricProject;
 import historic.minerator.rename.method.MethodHistoric;
 import historic.minerator.rename.method.MethodUtils;
 import historic.minerator.rename.method.RenameHistoric;
@@ -12,14 +13,16 @@ import java.util.List;
 /**
  * Created by ana.carlagb on 20/09/16.
  */
-public class MineratorHistoric {
+public class HistoricWriter {
 
 
     List<MethodHistoric> historic;
+    private HistoricReader reader;
 
 
-    public MineratorHistoric() {
+    public HistoricWriter() {
         this.historic = new ArrayList<>();
+        this.reader = new HistoricReader();
     }
 
     public void minerate(BufferedReader br) throws IOException {
@@ -156,4 +159,12 @@ public class MineratorHistoric {
     public List<MethodHistoric> getMethodHistoric() {
         return historic;
     }
+    
+    public void writeHistoric(HistoricProject project, String historicProjectURL){
+    	
+    }
+    
+    
+    
+    
 }
