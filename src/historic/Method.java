@@ -11,4 +11,10 @@ public class Method {
     public void setHistoric(MethodHistoric historic) {
         this.historic = historic;
     }
+
+	public MethodHistoric getHistoric() {
+		return historic;
+	}
+    
+    
 }

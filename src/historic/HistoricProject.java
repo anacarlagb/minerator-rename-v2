@@ -15,48 +15,45 @@ import java.util.List;
 public class HistoricProject {
 
     private List<Method> methods = new ArrayList<>();
+    private HistoricWriter minner = new HistoricWriter();
+    private String historic = "";
+    
+    
 
 
-    public void populateMethodHistoric(List<MethodHistoric> methodHistories){
-        methodHistories.stream().forEach( methodHistoric -> {
+    public void populateMethodHistoric(BufferedReader br) throws IOException{
+    	minner.minerate(br);
+        minner.getMethodHistoric().stream().forEach( methodHistoric -> {
                 Method method = new Method();
                 method.setHistoric(methodHistoric);
                 methods.add(method);
             }
         );
+        
+        minner.writeHistoric(this, historic);
 
     }
 
     public static void main(String[] args) {
 
-        HistoricWriter minner = new HistoricWriter();
         HistoricProject project = new HistoricProject();
-
         BufferedReader br = null;
         try {
-
             br = new BufferedReader(new FileReader("/home/clip/IdeaProjects/minerator-test" +
-                                                    "/src/junit4RefactoringHistoric.txt"));
-
-            minner.minerate(br);
-            project.populateMethodHistoric(minner.getMethodHistoric());
-            project.writeHistoric();
-
-
+                                                    "/src/junit4RefactoringHistoric.txt"));           
+            project.populateMethodHistoric(br);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void writeHistoric() {
+	public List<Method> getMethods() {
+		return methods;
+	}
 
-        //GetCSV
-        //Varre CSV
-        //
-
-
-    }
+   
+    
 }
 
 

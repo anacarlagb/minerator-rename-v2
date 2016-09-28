@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ana.carlagb on 20/09/16.
@@ -160,8 +161,16 @@ public class HistoricWriter {
         return historic;
     }
     
-    public void writeHistoric(HistoricProject project, String historicProjectURL){
+    public void writeHistoric(HistoricProject project, String historicProjectURL) throws IOException{
+    	Map<String, String> methods = reader.readerHistoric(historicProjectURL);
     	
+    	project.getMethods().forEach( method -> {
+    		
+    		if(methods.containsKey(method.getHistoric().getRootName())){
+    			//compare class
+    		    
+    		}
+    	});
     }
     
     
