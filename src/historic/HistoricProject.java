@@ -30,7 +30,7 @@ public class HistoricProject {
             }
         );
         
-        minner.writeHistoric(this, historic);
+        minner.writeHistoric(this, historic, "");
 
     }
 

@@ -10,10 +10,7 @@ import java.util.Optional;
 public class MethodHistoric {
 
 
-    public void setFlagMethod(FlagMethod flagMethod) {
-        this.flagMethod = flagMethod;
-    }
-
+    
     public enum FlagMethod {ROOT, RENAMED}
 
     private String rootName;
@@ -80,4 +77,9 @@ public class MethodHistoric {
     public String getRootName() {
         return rootName;
     }
+    
+    public void setFlagMethod(FlagMethod flagMethod) {
+        this.flagMethod = flagMethod;
+    }
+
 }

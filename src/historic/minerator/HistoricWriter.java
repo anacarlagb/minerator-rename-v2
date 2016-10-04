@@ -1,15 +1,20 @@
 package historic.minerator;
 
 import historic.HistoricProject;
+import historic.Method;
 import historic.minerator.rename.method.MethodHistoric;
 import historic.minerator.rename.method.MethodUtils;
 import historic.minerator.rename.method.RenameHistoric;
+import utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by ana.carlagb on 20/09/16.
@@ -19,6 +24,7 @@ public class HistoricWriter {
 
     List<MethodHistoric> historic;
     private HistoricReader reader;
+    private CsvWriter writer;
 
 
     public HistoricWriter() {
@@ -161,16 +167,122 @@ public class HistoricWriter {
         return historic;
     }
     
-    public void writeHistoric(HistoricProject project, String historicProjectURL) throws IOException{
-    	Map<String, String> methods = reader.readerHistoric(historicProjectURL);
+    //To compare 
+  //TODO - Make intersection between methods map and project.getMethods() to write method non renamed
+    public void writeHistoric(HistoricProject project, String historicProjectURL, String newHistoricURL) 
+    		throws IOException{
     	
-    	project.getMethods().forEach( method -> {
+    
+    
+        reader.retrieveHistoric(historicProjectURL);
+        writer = new CsvWriter(newHistoricURL , ',', Charset.forName("ISO-8859-1"));
+        
+        /** write head **/
+        reader.getHistoric(0).entrySet().forEach( columnName -> {
+        	try {
+				writer.write(columnName.getKey());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        });
+        
+        writer.endRecord();
+    	for (Method method : project.getMethods()) {
+    					
+    		/** Compare keys (method name) between historic of renames and old historic*/
+			Map<String, String> historicLine = reader.getHistoric(method.getHistoric().getRootName());
+			
+			/**Compare if className is equals */
+			String classeName = historicLine.get(Utils.FILE);
+			if(MethodUtils.isClassEquals(classeName,  method.getHistoric().getClassName())){
+				
+				/** write root historic **/
+		        String commitOfRename = method.getHistoric().getRenames().get(0).getCommit();
+		        
+		        boolean commitOfRenameFound[] = null;
+		        commitOfRenameFound[0] = false;
+		        
+		         /** writer statements **/
+		        historicLine.entrySet().forEach( methodMoment -> {
+		        	
+		        	if(methodMoment.getKey().equals(commitOfRename)){
+		        		commitOfRenameFound[0] = true;
+		        	}
+		        	if( !commitOfRenameFound[0]){
+		        		try {
+							writer.write(methodMoment.getValue());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		        	}
+		        });
+		        
+		        writeRenameHistoric(method.getHistoric());
+		           
+		       
+			}
+			
+			writer.endRecord();
+					
+    	
+		} 
     		
-    		if(methods.containsKey(method.getHistoric().getRootName())){
-    			//compare class
-    		    
-    		}
-    	});
+    			
+    		
+    }
+    
+    /** write node historic **/
+    private void writeRenameHistoric(MethodHistoric methodHistoric){
+    	
+    	int renameIndex[] = null;
+    	renameIndex[0] = 0;
+        	
+    	boolean commitOfRenameFound[] = null;
+  
+        
+    	for (RenameHistoric rename : methodHistoric.getRenames()) {
+    		Map<String, String> historicLine = reader.getHistoric(rename.getMethodName());
+    		
+    		/**Compare if className is equals */
+			String classeName = historicLine.get(Utils.FILE);
+		   
+			
+			if(MethodUtils.isClassEquals(classeName,  methodHistoric.getClassName())){
+				commitOfRenameFound[0] = false;
+				
+			    historicLine.entrySet().forEach( methodMoment -> {
+			      
+			    	/** Start of this rename historic **/
+			    	if(methodMoment.getKey().equals(rename.getCommit())){
+			    		commitOfRenameFound[0] = true;
+			    	}
+			    	else /** End of this rename historic **/
+				    	if(methodMoment.getKey().equals(methodHistoric.getRenames().get(renameIndex[0] + 1))){
+				    		commitOfRenameFound[0] = false;
+				    	}
+				    else
+				    	if(commitOfRenameFound[0]){
+				    		try {
+								writer.write(methodMoment.getValue());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				    	}
+			    	
+			    });	
+							
+			}
+			
+			
+			renameIndex[0]  = renameIndex[0] +1;
+    		
+		}
+    	
+    	
+    	
     }
     
     

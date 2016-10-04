@@ -1,0 +1,10 @@
+Commit:54d6e949e952100a3aea5d2bfb18ef26d39e28e8
+Rename Method	public teste2(number int, name String) : void renamed to public teste3() : void in class org.junit.tests.assertion.MultipleFailureExceptionTest
+Commit:61994e0c0aa768b43fad1ac6e35b1e43ffc8b142
+Rename Method	public countWithParameterizedField() : void renamed to public providesDataByAnnotatedFields() : void in class org.junit.tests.running.classes.ParameterizedTestTest
+Commit:daa46e409f29cd21f9b3a9036fd858c3c21e564f
+Rename Method	public assumptionViolatedExceptionWithMatcherDescribesItself() : void renamed to public assumptionViolatedExceptionWithMatcherDescribesItself2() : void in class org.junit.AssumptionViolatedExceptionTest
+Commit:0ffc637a33164dd219a6fbbb7210db84779c700a
+Rename Method	public test() : void renamed to public test2() : void in class org.junit.tests.assertion.MultipleFailureExceptionTest
+Commit:cfe6afadc81b72449c8b0cb96d51aa57f7a593b7
+Rename Method	public testComparisonErrorOverlapingMatches() : void renamed to public assumptionViolatedExceptionWithMatcherDescribesItself() : void in class org.junit.AssumptionViolatedExceptionTest
