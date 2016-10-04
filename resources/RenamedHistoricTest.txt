@@ -5,6 +5,6 @@ Rename Method	public countWithParameterizedField() : void renamed to public prov
 Commit:daa46e409f29cd21f9b3a9036fd858c3c21e564f
 Rename Method	public assumptionViolatedExceptionWithMatcherDescribesItself() : void renamed to public assumptionViolatedExceptionWithMatcherDescribesItself2() : void in class org.junit.AssumptionViolatedExceptionTest
 Commit:0ffc637a33164dd219a6fbbb7210db84779c700a
-Rename Method	public test() : void renamed to public test2() : void in class org.junit.tests.assertion.MultipleFailureExceptionTest
+Rename Method	public test() : void renamed to public teste2(number int, name String) : void in class org.junit.tests.assertion.MultipleFailureExceptionTest
 Commit:cfe6afadc81b72449c8b0cb96d51aa57f7a593b7
 Rename Method	public testComparisonErrorOverlapingMatches() : void renamed to public assumptionViolatedExceptionWithMatcherDescribesItself() : void in class org.junit.AssumptionViolatedExceptionTest
