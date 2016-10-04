@@ -6,5 +6,4 @@ C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,c
 C://projectName/src/org/junit/tests/assertion/MultipleFailureExceptionTest.java,test(),
 C://projectName/src/org/junit/tests/assertion/MultipleFailureExceptionTest.java,test3(),
 C://projectName/src/org/junit/AssumptionViolatedExceptionTest.java,assumptionViolatedExceptionWithMatcherDescribesItself2(), 
-C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,countWithParameterizedField(),
 C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,providesDataByAnnotatedFields(),
