@@ -44,7 +44,13 @@ public class HistoricReader {
 		final Integer[] key = new Integer[1];
 		methodMap.entrySet().forEach( methodHistoric -> {
 			
-			if(methodHistoric.getValue().equals(nameMethod)){
+			String methodHistoricIgnoreSpace = methodHistoric.getValue();
+			methodHistoricIgnoreSpace  = methodHistoricIgnoreSpace.replaceAll("\\s+","");
+			
+	        String nameMethodIgnoreSpace = nameMethod;
+	        nameMethodIgnoreSpace = nameMethodIgnoreSpace.replaceAll("\\s+","");
+	        
+			if(methodHistoricIgnoreSpace.equals(nameMethodIgnoreSpace)){
 				key[0] = methodHistoric.getKey();
 			}
 			
