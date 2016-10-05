@@ -15,7 +15,7 @@ import utils.Utils;
 
 public class HistoricReader {
 	
-	private static final String[] FILE_HEADER_MAPPING = {"File, Method"};
+	private static final String[] FILE_HEADER_MAPPING = {"fileName", "methodName"};
 	private Map<Integer, String> methodMap;
 	List csvRecords;
 	
@@ -27,7 +27,6 @@ public class HistoricReader {
 		methodMap = new HashMap<Integer, String>();
 	
 		
-	     
      	csvRecords = csvFileParser.getRecords(); 
      	for (int i = 1; i< csvRecords.size(); i++){
              CSVRecord record = (CSVRecord) csvRecords.get(i);
@@ -42,9 +41,8 @@ public class HistoricReader {
 		
 		Map<String, String> historic = new LinkedHashMap<String, String>();
 		
-		final Integer key[] = null;
+		final Integer[] key = new Integer[1];
 		methodMap.entrySet().forEach( methodHistoric -> {
-			
 			
 			if(methodHistoric.getValue().equals(nameMethod)){
 				key[0] = methodHistoric.getKey();
@@ -63,9 +61,5 @@ public class HistoricReader {
 	
 	
 	
-	public static void main(String[] args) throws IOException{
-		HistoricReader reader = new HistoricReader();
-		reader.retrieveHistoric("C:\\Users\\Ana Carla\\ProjetosAnalisados\\TestProject.csv");
-	}
 
 }

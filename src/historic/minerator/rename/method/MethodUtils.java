@@ -41,10 +41,9 @@ public class MethodUtils {
     
     public static boolean isClassEquals(String class1, String class2){
     	//write root history
-    	int class1EndIndex = class1.lastIndexOf("\\");
+    	int class1EndIndex = class1.lastIndexOf('/');
     	int class1StartIndex = class1.lastIndexOf(".");
     	String class1Prefix = class1.substring(class1StartIndex, class1EndIndex);
-    	
     	
     	int class2EndIndex = class2.lastIndexOf(".");
     	String class2Prefix = class2.substring(class2EndIndex);
@@ -52,9 +51,5 @@ public class MethodUtils {
     }
     
     
-    public static void main(String[] args) {
 
-        MethodUtils methodUtils = new MethodUtils();
-        System.out.println(methodUtils.parserParameter("invokeTestMethod(methodName TestMethod)"));
-    }
 }

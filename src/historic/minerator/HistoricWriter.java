@@ -171,9 +171,7 @@ public class HistoricWriter {
   //TODO - Make intersection between methods map and project.getMethods() to write method non renamed
     public void writeHistoric(HistoricProject project, String historicProjectURL, String newHistoricURL) 
     		throws IOException{
-    	
-    
-    
+      
         reader.retrieveHistoric(historicProjectURL);
         writer = new CsvWriter(newHistoricURL , ',', Charset.forName("ISO-8859-1"));
         
@@ -200,7 +198,7 @@ public class HistoricWriter {
 				/** write root historic **/
 		        String commitOfRename = method.getHistoric().getRenames().get(0).getCommit();
 		        
-		        boolean commitOfRenameFound[] = null;
+		        Boolean[] commitOfRenameFound = new Boolean[1];
 		        commitOfRenameFound[0] = false;
 		        
 		         /** writer statements **/
@@ -236,10 +234,10 @@ public class HistoricWriter {
     /** write node historic **/
     private void writeRenameHistoric(MethodHistoric methodHistoric){
     	
-    	int renameIndex[] = null;
+    	Integer[] renameIndex = new Integer[1];
     	renameIndex[0] = 0;
         	
-    	boolean commitOfRenameFound[] = null;
+    	Boolean[] commitOfRenameFound = new Boolean[1];
   
         
     	for (RenameHistoric rename : methodHistoric.getRenames()) {

@@ -16,11 +16,9 @@ public class HistoricProject {
 
     private List<Method> methods = new ArrayList<>();
     private HistoricWriter minner = new HistoricWriter();
-    private String historic = "";
+    private String historic = "C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\ProjectHistoric.csv";
     
-    
-
-
+   
     public void populateMethodHistoric(BufferedReader br) throws IOException{
     	minner.minerate(br);
         minner.getMethodHistoric().stream().forEach( methodHistoric -> {
@@ -30,7 +28,7 @@ public class HistoricProject {
             }
         );
         
-        minner.writeHistoric(this, historic, "");
+        minner.writeHistoric(this, historic, "C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\ProjectNewHistoric.csv");
 
     }
 
@@ -39,8 +37,7 @@ public class HistoricProject {
         HistoricProject project = new HistoricProject();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("/home/clip/IdeaProjects/minerator-test" +
-                                                    "/src/junit4RefactoringHistoric.txt"));           
+            br = new BufferedReader(new FileReader("C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\RenamedHistoricTest.txt"));           
             project.populateMethodHistoric(br);
         } catch (IOException e) {
             e.printStackTrace();
