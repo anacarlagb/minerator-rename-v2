@@ -9,7 +9,6 @@ import java.util.List;
 public class MethodUtils {
 
 
-
     public static String parserParameter(String nameMethod){
         if(hasParameter(nameMethod)) {
 
@@ -50,6 +49,8 @@ public class MethodUtils {
 
         return class1Prefix.equals(class2Prefix);
     }
+    
+    
     
     
 
