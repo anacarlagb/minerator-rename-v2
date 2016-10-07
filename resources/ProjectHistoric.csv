@@ -7,3 +7,4 @@ C://projectName/src/org/junit/tests/assertion/MultipleFailureExceptionTest.java,
 C://projectName/src/org/junit/tests/assertion/MultipleFailureExceptionTest.java,teste3(),0,0,0,0,9,9
 C://projectName/src/org/junit/AssumptionViolatedExceptionTest.java,assumptionViolatedExceptionWithMatcherDescribesItself2(),0,0,0,7,7,7
 C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,providesDataByAnnotatedFields(),0,0,0,0,3,3
+C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,providesDataByAnnotated(),8,8,8,0,0,0
