@@ -169,6 +169,7 @@ public class HistoricWriter {
         reader.retrieveHistoric(historicProjectURL);
         writer = new CsvWriter(newHistoricURL , ',', Charset.forName("ISO-8859-1"));
         
+        write("Renamed Historic");
         /** write head **/
         reader.getHistoric(0).entrySet().forEach( columnName -> {
         	write(columnName.getKey());
@@ -185,10 +186,14 @@ public class HistoricWriter {
 			if(MethodUtils.isClassEquals(classeName,  method.getHistoric().getClassName())){
 				
 				/** write root historic **/
-		        String commitOfRename = method.getHistoric().getRenames().get(0).getCommit();
+		        String commitOfRename = method.getHistoric().getBaseRename().getCommit();
 		        
 		        Boolean[] commitOfRenameFound = new Boolean[1];
 		        commitOfRenameFound[0] = false;
+		        
+		        /**write all child methods (renames) **/
+		        write(method.getHistoric().getRenameHistoric().toString());
+		        
 		        
 		         /** writer statements **/
 		        historicLine.entrySet().forEach( methodMoment -> {
@@ -283,9 +288,12 @@ public class HistoricWriter {
     	List<Integer> otherHistoricNumbers = reader.getOtherHistoric();
     
     	
+    	
     	for (Integer historicNumber : otherHistoricNumbers) {
 			
+    		
     		if(historicNumber != 0){
+    		write("Method not modified");
 			 List<String> otherHistoric = reader.parserHistoric(historicNumber);
 			 
 				 otherHistoric.forEach( methodMoment -> {

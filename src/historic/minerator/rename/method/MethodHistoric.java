@@ -1,6 +1,7 @@
 package historic.minerator.rename.method;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,16 @@ public class MethodHistoric {
 
     public List<RenameHistoric> getRenames() {
         return renames;
+    }
+    
+    public List<String> getRenameHistoric(){
+    	
+    	List<String> renameHistoric = new LinkedList<>();
+    	renames.forEach( rename -> {
+    		renameHistoric.add(rename.getMethodName());
+    	});
+    	
+    	return renameHistoric;
     }
 
     public RenameHistoric getRenameHistoricPerCommit(String commit){
