@@ -17,6 +17,7 @@ public class HistoricReader {
 	private Map<Integer, String> methodMap;
 	private List<String> headerList; 
 	List csvRecords;
+	List<Integer> historicModified; 
 	
 	public void retrieveHistoric(String pathHistoric) throws IOException{
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
@@ -36,6 +37,7 @@ public class HistoricReader {
      	}
      	
      	parserHeader();
+     	historicModified = new LinkedList<>();
      	   
 	}
 	
@@ -55,11 +57,11 @@ public class HistoricReader {
 			}
 			
 		});
-		
+		historicModified.add(key[0]);
 		return getHistoric(key[0]);
 	}
 	
-	private  List<String> parserHistoric(int numberHistoric){
+	public  List<String> parserHistoric(int numberHistoric){
 		
 		CSVRecord record = (CSVRecord) csvRecords.get(numberHistoric);
 		
@@ -126,6 +128,19 @@ public class HistoricReader {
 		}
 
 		 return historicPerMethod;
+	}
+	
+	
+	public List<Integer> getOtherHistoric(){
+		
+		List<Integer> allHistoric = new LinkedList(methodMap.keySet());
+		
+		//Interserction - remove historic modified 
+		allHistoric.removeAll(historicModified);   
+		
+		return allHistoric;
+		
+		
 	}
 	
 	
