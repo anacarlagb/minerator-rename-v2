@@ -153,6 +153,15 @@ public class HistoricWriter {
         return historic;
     }
     
+    public void write(String object){
+    	try {
+			writer.write(object);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     //To compare 
   //TODO - Make intersection between methods map and project.getMethods() to write method non renamed
     public void writeHistoric(HistoricProject project, String historicProjectURL, String newHistoricURL) 
@@ -163,12 +172,7 @@ public class HistoricWriter {
         
         /** write head **/
         reader.getHistoric(0).entrySet().forEach( columnName -> {
-        	try {
-				writer.write(columnName.getKey());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	write(columnName.getKey());
         });
         
         writer.endRecord();
@@ -194,12 +198,7 @@ public class HistoricWriter {
 		        		commitOfRenameFound[0] = true;
 		        	}
 		        	if( !commitOfRenameFound[0]){
-		        		try {
-							writer.write(methodMoment.getValue());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+		        		write(methodMoment.getValue());
 		        	}
 		        });
 		        
@@ -221,70 +220,73 @@ public class HistoricWriter {
     
     /** write node historic **/
     private void writeRenameHistoric(MethodHistoric methodHistoric){
-    	
-    	Integer[] renameIndex = new Integer[1];
-    	renameIndex[0] = 0;
-        	
-    	Boolean[] commitOfRenameFound = new Boolean[1];
-  
-        
-    	for (RenameHistoric rename : methodHistoric.getRenames()) {
-    		Map<String, String> historicLine = reader.getHistoric(rename.getMethodName());
+    	       
+   
     		
+		for (int renameCurrentIndex = 0; renameCurrentIndex < methodHistoric.getRenames().size(); renameCurrentIndex++) {
+			
+			RenameHistoric rename = methodHistoric.getRenames().get(renameCurrentIndex);
+			String[] commitOfNextRename = new String[1]; 
+			int renameNextIndex = renameCurrentIndex + 1;
+			
+			boolean[] canWriter = new boolean[1]; 
+			String[] currentCommit = new String[1];
+			
+			currentCommit[0] = rename.getCommit();
+			canWriter[0] = false;
+			
+			//if has nextRename, get commitOfNextRename 
+			if(renameNextIndex < methodHistoric.getRenames().size()){
+				commitOfNextRename[0] = methodHistoric.getRenames().get(renameNextIndex).getCommit();
+				System.out.println(commitOfNextRename[0]);
+			}
+		
+			
+			Map<String, String> historicLine = reader.getHistoric(rename.getMethodName());
+			
     		/**Compare if className is equals */
 			String classeName = historicLine.get(Utils.FILE);
-		   
 			
 			if(MethodUtils.isClassEquals(classeName,  methodHistoric.getClassName())){
 				
-				commitOfRenameFound[0] = false;
-			
-				int renameNextIndex =  renameIndex[0] + 1;
-				
 			    historicLine.entrySet().forEach( methodMoment -> {
-			      
-			    	
-			    	/** Start of this rename historic **/
-			    	 
-			    	if(methodMoment.getKey().equals(rename.getCommit())){
-			    		 
-			    			commitOfRenameFound[0] = true;
+			   
+			    		String methodMomentIgnoreSpace = methodMoment.getKey();
+			    		methodMomentIgnoreSpace = methodMomentIgnoreSpace.replaceAll("\\s+","");
+			    		
+			    		
+			    		String currentCommitIgnoreSpace = currentCommit[0];
+			    		currentCommitIgnoreSpace = currentCommitIgnoreSpace.replaceAll("\\s+","");
+			    		
+//			    		String commitOfNextRenameIgnoreSpace = commitOfNextRename[0];
+//			    		commitOfNextRenameIgnoreSpace = commitOfNextRenameIgnoreSpace.replaceAll("\\s+","");
+			    		
+			    		if(methodMomentIgnoreSpace.equals(currentCommitIgnoreSpace)){
+			    			
+			    			canWriter[0] = true;
 			    		}
-			    	else /** End of this rename historic **/
-				    	if(renameNextIndex < methodHistoric.getRenames().size() 
-				    			&& methodMoment.getKey().equals(methodHistoric.getRenames().get(renameNextIndex).getCommit())){
-				    		 
-				    			commitOfRenameFound[0] = false;
-				    	}
-				    else
-				    	if(renameNextIndex ==  methodHistoric.getRenames().size() 
-				    			&& methodMoment.getKey().equals(rename.getCommit())){
-				    		commitOfRenameFound[0] = true;
-				    	}
-				    
-			    	if(commitOfRenameFound[0]){
-				    		try {
-				    			
-				    			System.out.println(methodMoment.getValue());
-								writer.write(methodMoment.getValue());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-				    	}
+		    			else
+		    			   if(methodMomentIgnoreSpace.equals(commitOfNextRename[0])){	
+		    				canWriter[0] = false;
+		    			 }
+		    		
+			    		
 			    	
+		    			if(canWriter[0]){
+		    				write(methodMoment.getValue());
+		    			}
+		    			
+	    	
 			    });	
-							
 			}
-			renameIndex[0] = renameIndex[0] + 1;
-			
+    	
 			
 		}
-    	
-    	
-    	
+		
     }
-    
+			    
+		
+ 
     
     
     
