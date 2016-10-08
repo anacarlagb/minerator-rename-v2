@@ -10,6 +10,7 @@ import utils.Utils;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.Map.Entry;
 
 public class HistoricReader {
 	
@@ -18,6 +19,7 @@ public class HistoricReader {
 	private List<String> headerList; 
 	List csvRecords;
 	List<Integer> historicModified; 
+	Integer currentKey;
 	
 	public void retrieveHistoric(String pathHistoric) throws IOException{
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
@@ -32,10 +34,15 @@ public class HistoricReader {
      	csvRecords = csvFileParser.getRecords(); 
      	for (int i = 0; i< csvRecords.size(); i++){
              CSVRecord record = (CSVRecord) csvRecords.get(i);
-             String method = record.get(Utils.METHOD);            
+             String method = record.get(Utils.METHOD);
+             
              methodMap.put(i, method);
+           
+           
      	}
      	
+     	
+    
      	parserHeader();
      	historicModified = new LinkedList<>();
      	   
@@ -43,22 +50,37 @@ public class HistoricReader {
 	
 	public Map<String, String> getHistoric(String nameMethod){
 		
-		final Integer[] key = new Integer[1];
-		methodMap.entrySet().forEach( methodHistoric -> {
-			
+		Integer key = null;
+		
+		for (Entry<Integer, String> methodHistoric : methodMap.entrySet()) {
+			 
 			String methodHistoricIgnoreSpace = methodHistoric.getValue();
 			methodHistoricIgnoreSpace  = methodHistoricIgnoreSpace.replaceAll("\\s+","");
 			
 	        String nameMethodIgnoreSpace = nameMethod;
 	        nameMethodIgnoreSpace = nameMethodIgnoreSpace.replaceAll("\\s+","");
+	       
+	        
 	        
 			if(methodHistoricIgnoreSpace.equals(nameMethodIgnoreSpace)){
-				key[0] = methodHistoric.getKey();
+				key = methodHistoric.getKey();
+				
 			}
-			
-		});
-		historicModified.add(key[0]);
-		return getHistoric(key[0]);
+		}
+	
+		
+      if(key != null){
+		currentKey = key;
+		return getHistoric(currentKey);
+      }
+      
+      return new HashMap<String, String>();
+		
+	}
+	
+	public void saveMethodKey(){
+		historicModified.add(currentKey);
+		currentKey = null;
 	}
 	
 	public  List<String> parserHistoric(int numberHistoric){
@@ -66,6 +88,8 @@ public class HistoricReader {
 		CSVRecord record = (CSVRecord) csvRecords.get(numberHistoric);
 		
 		String historicRecord = record.toString();
+		
+		System.out.println(historicRecord);
 		
 		String historicStart = Utils.VALUES_INDICATOR + Utils.OPEN_VALUES;
 		
@@ -75,7 +99,11 @@ public class HistoricReader {
 
 		int methodIndexLast = valuesPartial.lastIndexOf(Utils.END_METHOD + Utils.SEPARATOR);
 
-		int valuesEndIndex = valuesPartial.indexOf(Utils.CLOSE_VALUES);
+		int valuesEndIndex = valuesPartial.lastIndexOf(Utils.CLOSE_VALUES);
+		
+		if(valuesPartial.charAt(valuesEndIndex - 1) == ']'){
+			 valuesEndIndex = valuesEndIndex - 1;
+		}
 		
 		String methodEnd =  Utils.END_METHOD + Utils.SEPARATOR.length(); 
 

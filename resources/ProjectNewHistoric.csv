@@ -2,3 +2,4 @@ Renamed Historic,fileName,methodName,cfe6afadc81b72449c8b0cb96d51aa57f7a593b8,cf
 "[assumptionViolatedExceptionWithMatcherDescribesItself(), assumptionViolatedExceptionWithMatcherDescribesItself2()]",C://projectName/src/org/junit/AssumptionViolatedExceptionTest.java,testComparisonErrorOverlapingMatches(),5,6,6,7,7,7
 "[teste2(int number,String name), teste3()]",C://projectName/src/org/junit/tests/assertion/MultipleFailureExceptionTest.java,test(),6,7,8,8,9,9
 [providesDataByAnnotatedFields()],C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,countWithParameterizedField(),2,2,2,2,3,3
+Method not modified,C://projectName/src/org/junit/tests/running/classes/ParameterizedTestTest.java,providesDataByAnnotated(),8,8,8,0,0,0

@@ -181,46 +181,51 @@ public class HistoricWriter {
     		/** Compare keys (method name) between historic of renames and old historic*/
 			Map<String, String> historicLine = reader.getHistoric(method.getHistoric().getRootName());
 			
-			/**Compare if className is equals */
-			String classeName = historicLine.get(Utils.FILE);
-			if(MethodUtils.isClassEquals(classeName,  method.getHistoric().getClassName())){
+			if(historicLine != null && (!historicLine.isEmpty())){
 				
-				/** write root historic **/
-		        String commitOfRename = method.getHistoric().getBaseRename().getCommit();
-		        
-		        Boolean[] commitOfRenameFound = new Boolean[1];
-		        commitOfRenameFound[0] = false;
-		        
-		        /**write all child methods (renames) **/
-		        write(method.getHistoric().getRenameHistoric().toString());
-		        
-		        
-		         /** writer statements **/
-		        historicLine.entrySet().forEach( methodMoment -> {
-		        	
-		        	if(methodMoment.getKey().equals(commitOfRename)){
-		        		commitOfRenameFound[0] = true;
-		        	}
-		        	if( !commitOfRenameFound[0]){
-		        		write(methodMoment.getValue());
-		        	}
-		        });
-		        
-		        writeRenameHistoric(method.getHistoric());
-		           
-		       
-			}
-			
-			writer.endRecord();
+
+				/**Compare if className is equals */
+				String classeName = historicLine.get(Utils.FILE);
+				if(MethodUtils.isClassEquals(classeName,  method.getHistoric().getClassName())){
 					
+					reader.saveMethodKey();
+					/** write root historic **/
+			        String commitOfRename = method.getHistoric().getBaseRename().getCommit();
+			        
+			        Boolean[] commitOfRenameFound = new Boolean[1];
+			        commitOfRenameFound[0] = false;
+			        
+			        /**write all child methods (renames) **/
+			        write(method.getHistoric().getRenameHistoric().toString());
+			        
+			        
+			         /** writer statements **/
+			        historicLine.entrySet().forEach( methodMoment -> {
+			        	
+			        	if(methodMoment.getKey().equals(commitOfRename)){
+			        		commitOfRenameFound[0] = true;
+			        	}
+			        	if( !commitOfRenameFound[0]){
+			        		write(methodMoment.getValue());
+			        	}
+			        });
+			        
+			        writeRenameHistoric(method.getHistoric());
+			           
+			       
+				}
+				
+				writer.endRecord();
+						
     	
 		}
     	
     	
     	writeOtherHistoric();
-    	writer.close();
+    	
+      }
     		
-    			
+      writer.close();	
     		
     }
     
@@ -249,32 +254,38 @@ public class HistoricWriter {
 			
 			Map<String, String> historicLine = reader.getHistoric(rename.getMethodName());
 			
-    		/**Compare if className is equals */
-			String classeName = historicLine.get(Utils.FILE);
 			
-			if(MethodUtils.isClassEquals(classeName,  methodHistoric.getClassName())){
+			if(historicLine != null  && !historicLine.isEmpty()){
+			
+	    		/**Compare if className is equals */
+				String classeName = historicLine.get(Utils.FILE);
 				
-			    historicLine.entrySet().forEach( methodMoment -> {
-			   			 
-			    		String methodMomentIgnoreSpace = methodMoment.getKey();
-			    		methodMomentIgnoreSpace = methodMomentIgnoreSpace.replaceAll("\\s+","");			    		
-			    		String currentCommitIgnoreSpace = currentCommit[0];
-			    		currentCommitIgnoreSpace = currentCommitIgnoreSpace.replaceAll("\\s+","");
-			    		
-			    		if(methodMomentIgnoreSpace.equals(currentCommitIgnoreSpace)){
-			    			canWriter[0] = true;		
-			    		}
-		    			else
-		    			   if(methodMomentIgnoreSpace.equals(commitOfNextRename[0])){	
-		    				canWriter[0] = false;
-		    			 }	
-			    
-		    			if(canWriter[0]){
-		    				write(methodMoment.getValue());
-		    			}
-		    			
-	    	
-			    });	
+				if(MethodUtils.isClassEquals(classeName,  methodHistoric.getClassName())){
+					
+					reader.saveMethodKey();
+					
+				    historicLine.entrySet().forEach( methodMoment -> {
+				   			 
+				    		String methodMomentIgnoreSpace = methodMoment.getKey();
+				    		methodMomentIgnoreSpace = methodMomentIgnoreSpace.replaceAll("\\s+","");			    		
+				    		String currentCommitIgnoreSpace = currentCommit[0];
+				    		currentCommitIgnoreSpace = currentCommitIgnoreSpace.replaceAll("\\s+","");
+				    		
+				    		if(methodMomentIgnoreSpace.equals(currentCommitIgnoreSpace)){
+				    			canWriter[0] = true;		
+				    		}
+			    			else
+			    			   if(methodMomentIgnoreSpace.equals(commitOfNextRename[0])){	
+			    				canWriter[0] = false;
+			    			 }	
+				    
+			    			if(canWriter[0]){
+			    				write(methodMoment.getValue());
+			    			}
+			    			
+		    	
+				    });	
+				}
 			}
     	
 			
@@ -288,12 +299,11 @@ public class HistoricWriter {
     	List<Integer> otherHistoricNumbers = reader.getOtherHistoric();
     
     	
-    	
     	for (Integer historicNumber : otherHistoricNumbers) {
 			
     		
     		if(historicNumber != 0){
-    		write("Method not modified");
+    		 write("Method not modified");
 			 List<String> otherHistoric = reader.parserHistoric(historicNumber);
 			 
 				 otherHistoric.forEach( methodMoment -> {

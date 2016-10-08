@@ -16,7 +16,7 @@ public class HistoricProject {
 
     private List<Method> methods = new ArrayList<>();
     private HistoricWriter minner = new HistoricWriter();
-    private String historic = "C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\ProjectHistoric.csv";
+    private String historic = "C:\\Users\\Ana Carla\\Dropbox\\UFAL\\UFAL\\8Periodo\\TCC_ExtractMethodMinerator\\CSV_Stats_V3\\JunitStatsBackup.csv";
     
    
     public void populateMethodHistoric(BufferedReader br) throws IOException{
@@ -28,7 +28,7 @@ public class HistoricProject {
             }
         );
         
-        minner.writeHistoric(this, historic, "C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\ProjectNewHistoric.csv");
+        minner.writeHistoric(this, historic, "C:\\Users\\Ana Carla\\ProjetosAnalisados\\StatsHistoric\\Backup\\JunitStatsHistoricV2.csv");
 
     }
 
@@ -37,7 +37,7 @@ public class HistoricProject {
         HistoricProject project = new HistoricProject();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("C:\\Users\\Ana Carla\\minner-tools\\minerator-rename-v2\\resources\\RenamedHistoricTest.txt"));           
+            br = new BufferedReader(new FileReader("C:\\Users\\Ana Carla\\ProjetosAnalisados\\StatsHistoric\\Junit4RefactoringHistoric.txt"));           
             project.populateMethodHistoric(br);
         } catch (IOException e) {
             e.printStackTrace();
