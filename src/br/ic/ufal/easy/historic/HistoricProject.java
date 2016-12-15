@@ -1,7 +1,7 @@
-package historic;
+package br.ic.ufal.easy.historic;
 
-import historic.minerator.HistoricWriter;
-import historic.minerator.rename.method.MethodHistoric;
+import br.ic.ufal.easy.historic.minerator.HistoricWriter;
+import br.ic.ufal.easy.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ public class HistoricProject {
 
     private List<Method> methods = new ArrayList<>();
     private HistoricWriter minner = new HistoricWriter();
-    private String historic = "C:\\Users\\Ana Carla\\Dropbox\\UFAL\\UFAL\\8Periodo\\TCC_ExtractMethodMinerator\\CSV_Stats_V3\\JunitStatsBackup.csv";
+    private String historic = Utils.CLIP_PDF_CSV;
     
    
     public void populateMethodHistoric(BufferedReader br) throws IOException{
@@ -28,7 +28,7 @@ public class HistoricProject {
             }
         );
         
-        minner.writeHistoric(this, historic, "C:\\Users\\Ana Carla\\ProjetosAnalisados\\StatsHistoric\\Backup\\JunitStatsHistoricV2.csv");
+        minner.writeHistoric(this, historic, Utils.CLIP_PDF_HISTORIC_CSV);
 
     }
 
@@ -37,7 +37,7 @@ public class HistoricProject {
         HistoricProject project = new HistoricProject();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("C:\\Users\\Ana Carla\\ProjetosAnalisados\\StatsHistoric\\Junit4RefactoringHistoric.txt"));           
+            br = new BufferedReader(new FileReader(Utils.CLIP_PDF_RENAME_FILE));
             project.populateMethodHistoric(br);
         } catch (IOException e) {
             e.printStackTrace();

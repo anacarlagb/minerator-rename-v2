@@ -1,17 +1,16 @@
-package historic.minerator;
+package br.ic.ufal.easy.historic.minerator;
 
-import historic.HistoricProject;
-import historic.Method;
-import historic.minerator.rename.method.MethodHistoric;
-import historic.minerator.rename.method.MethodUtils;
-import historic.minerator.rename.method.RenameHistoric;
-import utils.Utils;
+import br.ic.ufal.easy.historic.HistoricProject;
+import br.ic.ufal.easy.historic.Method;
+import br.ic.ufal.easy.historic.minerator.rename.method.MethodHistoric;
+import br.ic.ufal.easy.historic.minerator.rename.method.MethodUtils;
+import br.ic.ufal.easy.historic.minerator.rename.method.RenameHistoric;
+import br.ic.ufal.easy.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +82,7 @@ public class HistoricWriter {
                 rootMethod = MethodUtils.parserParameter(rootMethod);
                 renamedMethod = MethodUtils.parserParameter(renamedMethod);
 
-                //Creating method historic
+                //Creating method br.ic.ufal.easy.historic
                 methodHistoric = new MethodHistoric(className, rootMethod);
                 methodHistoric.addRename(commit, renamedMethod);
 
@@ -109,7 +108,7 @@ public class HistoricWriter {
                 if (methodHistoric.getRootName().equals(methodName)
                         && methodHistoric.getClassName().equals(className)
                         && methodHistoric.getFlagMethod() == null) {
-
+                      
 
                     historic.get(i).setFlagMethod(MethodHistoric.FlagMethod.RENAMED);
 
@@ -168,8 +167,8 @@ public class HistoricWriter {
       
         reader.retrieveHistoric(historicProjectURL);
         writer = new CsvWriter(newHistoricURL , ',', Charset.forName("ISO-8859-1"));
-        
-        write("Renamed Historic");
+
+        //  write("Renamed Historic");
         /** write head **/
         reader.getHistoric(0).entrySet().forEach( columnName -> {
         	write(columnName.getKey());
@@ -191,12 +190,12 @@ public class HistoricWriter {
 					reader.saveMethodKey();
 					/** write root historic **/
 			        String commitOfRename = method.getHistoric().getBaseRename().getCommit();
-			        
+
 			        Boolean[] commitOfRenameFound = new Boolean[1];
 			        commitOfRenameFound[0] = false;
 			        
-			        /**write all child methods (renames) **/
-			        write(method.getHistoric().getRenameHistoric().toString());
+			        /**write all child methods names (renames) **/
+		       //     write(method.getHistoric().getRenameHistoric().toString());
 			        
 			        
 			         /** writer statements **/
@@ -229,7 +228,7 @@ public class HistoricWriter {
     		
     }
     
-    /** write node historic **/
+    /** write node br.ic.ufal.easy.historic **/
     private void writeRenameHistoric(MethodHistoric methodHistoric){
     	       
    		
@@ -303,7 +302,7 @@ public class HistoricWriter {
 			
     		
     		if(historicNumber != 0){
-    		 write("Method not modified");
+    		 //write("Method not modified");
 			 List<String> otherHistoric = reader.parserHistoric(historicNumber);
 			 
 				 otherHistoric.forEach( methodMoment -> {

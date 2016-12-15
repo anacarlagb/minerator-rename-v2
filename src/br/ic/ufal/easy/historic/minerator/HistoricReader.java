@@ -1,11 +1,11 @@
-package historic.minerator;
+package br.ic.ufal.easy.historic.minerator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 
-import utils.Utils;
+import br.ic.ufal.easy.utils.Utils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,7 +20,9 @@ public class HistoricReader {
 	List csvRecords;
 	List<Integer> historicModified; 
 	Integer currentKey;
-	
+
+
+
 	public void retrieveHistoric(String pathHistoric) throws IOException{
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
 		FileReader fileReader = new FileReader(pathHistoric);
@@ -56,12 +58,13 @@ public class HistoricReader {
 			 
 			String methodHistoricIgnoreSpace = methodHistoric.getValue();
 			methodHistoricIgnoreSpace  = methodHistoricIgnoreSpace.replaceAll("\\s+","");
+			methodHistoricIgnoreSpace  = methodHistoricIgnoreSpace.replaceAll("\"","");
 			
 	        String nameMethodIgnoreSpace = nameMethod;
 	        nameMethodIgnoreSpace = nameMethodIgnoreSpace.replaceAll("\\s+","");
-	       
+	        nameMethodIgnoreSpace = nameMethodIgnoreSpace.replaceAll("\"","");
 	        
-	        
+	    
 			if(methodHistoricIgnoreSpace.equals(nameMethodIgnoreSpace)){
 				key = methodHistoric.getKey();
 				
@@ -89,7 +92,7 @@ public class HistoricReader {
 		
 		String historicRecord = record.toString();
 		
-		System.out.println(historicRecord);
+//		System.out.println(historicRecord);
 		
 		String historicStart = Utils.VALUES_INDICATOR + Utils.OPEN_VALUES;
 		
@@ -152,7 +155,12 @@ public class HistoricReader {
 		List<String> historicPerLine = parserHistoric(numberHistoric);
 		
 		for (int i = 0; i < headerList.size(); i++) {
-			historicPerMethod.put(headerList.get(i), historicPerLine.get(i));
+			if(i < historicPerLine.size()){
+				System.out.println("indice atual : " + i);
+				System.out.println("indice - cabecalho: " + headerList.size());
+				System.out.println("indice - linha : " + historicPerLine.size());
+				historicPerMethod.put(headerList.get(i), historicPerLine.get(i));
+			}	
 		}
 
 		 return historicPerMethod;
@@ -163,15 +171,16 @@ public class HistoricReader {
 		
 		List<Integer> allHistoric = new LinkedList(methodMap.keySet());
 		
-		//Interserction - remove historic modified 
+		//Interserction - remove historic modified
 		allHistoric.removeAll(historicModified);   
 		
 		return allHistoric;
 		
 		
 	}
-	
-	
-	
 
+
+	public List getCsvRecords() {
+		return csvRecords;
+	}
 }

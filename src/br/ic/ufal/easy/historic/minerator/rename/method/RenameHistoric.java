@@ -1,4 +1,4 @@
-package historic.minerator.rename.method;
+package br.ic.ufal.easy.historic.minerator.rename.method;
 
 /**
  * Created by ana.carlagb on 20/09/16.

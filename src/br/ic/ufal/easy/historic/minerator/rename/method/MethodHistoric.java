@@ -1,4 +1,4 @@
-package historic.minerator.rename.method;
+package br.ic.ufal.easy.historic.minerator.rename.method;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -10,8 +10,6 @@ import java.util.Optional;
  */
 public class MethodHistoric {
 
-
-    
     public enum FlagMethod {ROOT, RENAMED}
 
     private String rootName;

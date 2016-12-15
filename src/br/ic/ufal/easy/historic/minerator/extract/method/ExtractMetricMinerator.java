@@ -1,0 +1,65 @@
+package br.ic.ufal.easy.historic.minerator.extract.method;
+
+import br.ic.ufal.easy.historic.minerator.CsvReader;
+import br.ic.ufal.easy.historic.minerator.CsvWriter;
+import br.ic.ufal.easy.historic.minerator.HistoricReader;
+import br.ic.ufal.easy.utils.Utils;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.*;
+
+/**
+ * Created by Ana Carla on 15/12/2016.
+ */
+public class ExtractMetricMinerator {
+
+    CsvWriter writer;
+
+    public void minerateExtractMethod(){
+        HistoricReader reader = new HistoricReader();
+        writer = new CsvWriter("" , ',', Charset.forName("ISO-8859-1"));
+
+        try {
+              reader.retrieveHistoric(Utils.CLIP_HISTORIC_CSV);
+              int size = reader.getCsvRecords().size();
+              for(int i = 0; i < size ; i++){
+                  Map<String, String> historicPerLine = reader.getHistoric(i);
+                  String className = historicPerLine.get(Utils.FILE);
+                  String methodName = historicPerLine.get(Utils.METHOD);
+                  findExtractMethod(className, methodName, historicPerLine);
+
+              }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void findExtractMethod(String className, String methodName, Map<String, String> historicPerLine) {
+
+        final String[] commit1 = new String[1];
+        String commit2;
+        int numberStats1;
+        int numberStats2;
+
+        List<String> headerList = new ArrayList<>(historicPerLine.keySet());
+        List<String> bodyList = new ArrayList<>(historicPerLine.values());
+
+        for (int i = 2; i < bodyList.size(); i++) {
+            String value = bodyList.get(i);
+            if(value != null && value.isEmpty()){
+
+                
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        //Passa o csv velho e o csv novo
+        //Vai varrendo as linhas do csv  e ve tem alguma queda, se tiver
+        //salva class, method, commit1, numeroStatements1, commit2, numeroStatemts2
+    }
+}

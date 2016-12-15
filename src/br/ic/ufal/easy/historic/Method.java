@@ -1,6 +1,6 @@
-package historic;
+package br.ic.ufal.easy.historic;
 
-import historic.minerator.rename.method.MethodHistoric;
+import br.ic.ufal.easy.historic.minerator.rename.method.MethodHistoric;
 
 /**
  * Created by ana.carlagb on 21/09/16.
