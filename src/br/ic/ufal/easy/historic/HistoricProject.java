@@ -16,7 +16,7 @@ public class HistoricProject {
 
     private List<Method> methods = new ArrayList<>();
     private HistoricWriter minner = new HistoricWriter();
-    private String historic = Utils.CLIP_PDF_CSV;
+    private String historic = Utils.CLIP_OCR_CSV;
     
    
     public void populateMethodHistoric(BufferedReader br) throws IOException{
@@ -28,7 +28,7 @@ public class HistoricProject {
             }
         );
         
-        minner.writeHistoric(this, historic, Utils.CLIP_PDF_HISTORIC_CSV);
+        minner.writeHistoric(this, historic, Utils.CLIP_OCR_HISTORIC_CSV_TEST);
 
     }
 
@@ -37,7 +37,7 @@ public class HistoricProject {
         HistoricProject project = new HistoricProject();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(Utils.CLIP_PDF_RENAME_FILE));
+            br = new BufferedReader(new FileReader(Utils.CLIP_OCR_RENAME_FILE));
             project.populateMethodHistoric(br);
         } catch (IOException e) {
             e.printStackTrace();

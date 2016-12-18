@@ -2,6 +2,7 @@ package br.ic.ufal.easy.historic.minerator;
 
 import br.ic.ufal.easy.historic.HistoricProject;
 import br.ic.ufal.easy.historic.Method;
+import br.ic.ufal.easy.historic.minerator.extract.method.ExtractMetricMinerator;
 import br.ic.ufal.easy.historic.minerator.rename.method.MethodHistoric;
 import br.ic.ufal.easy.historic.minerator.rename.method.MethodUtils;
 import br.ic.ufal.easy.historic.minerator.rename.method.RenameHistoric;
@@ -195,9 +196,8 @@ public class HistoricWriter {
 			        commitOfRenameFound[0] = false;
 			        
 			        /**write all child methods names (renames) **/
-		       //     write(method.getHistoric().getRenameHistoric().toString());
-			        
-			        
+		       //   write(method.getHistoric().getRenameHistoric().toString());
+
 			         /** writer statements **/
 			        historicLine.entrySet().forEach( methodMoment -> {
 			        	
@@ -224,7 +224,9 @@ public class HistoricWriter {
     	
       }
     		
-      writer.close();	
+      writer.close();
+    	new ExtractMetricMinerator().
+                minerateExtractMethod("clipOcr_extract_method.csv");
     		
     }
     

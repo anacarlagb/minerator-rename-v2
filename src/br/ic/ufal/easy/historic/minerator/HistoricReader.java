@@ -111,15 +111,23 @@ public class HistoricReader {
 		String methodEnd =  Utils.END_METHOD + Utils.SEPARATOR.length(); 
 
 		String historicValue = valuesPartial.substring(methodIndexLast + methodEnd.length() , valuesEndIndex);
-		
-		List<String> historicList = new LinkedList<>();
-		
+
+		List<String> valueList = Arrays.asList(historicValue.split("\\s*,\\s*"));
+
+
+		if( !Utils.isIntegerList(valueList)) {
+			valueList = Arrays.asList("0", "0", "0", "0");
+		}
+
+
+
+        List<String> historicList = new LinkedList<>();
 		historicList.add(record.get(Utils.FILE));
 		historicList.add(record.get(Utils.METHOD));
 
-		historicList.addAll(Arrays.asList(historicValue.split("\\s*,\\s*")));
-		
-		return historicList;
+		historicList.addAll(valueList);
+
+		return  historicList;
     	
     }
 	
@@ -156,9 +164,7 @@ public class HistoricReader {
 		
 		for (int i = 0; i < headerList.size(); i++) {
 			if(i < historicPerLine.size()){
-				System.out.println("indice atual : " + i);
-				System.out.println("indice - cabecalho: " + headerList.size());
-				System.out.println("indice - linha : " + historicPerLine.size());
+
 				historicPerMethod.put(headerList.get(i), historicPerLine.get(i));
 			}	
 		}

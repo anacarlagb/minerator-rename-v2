@@ -1,5 +1,9 @@
 package br.ic.ufal.easy.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+
 public class Utils {
 	public static final String FILE = "fileName";
 	public static final String METHOD = "methodName";
@@ -27,9 +31,20 @@ public class Utils {
 	
 	public static final String CLIP_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\clip_historic_after_merge_v1.csv";
 	public static final String CLIP_OCR_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\clipOcr_historic_after_merge_v1.csv";
+	public static final String CLIP_OCR_HISTORIC_CSV_TEST = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\TESTS\\clipOcr_historic_after_merge_v1.csv";
 	public static final String CLIP_PDF_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\clipPdf_historic_after_merge_v1.csv";
 	public static final String CLIP_COMMONS_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\clipCommons_historic_after_merge_v1.csv";
 	public static final String MEYER_CONTROL_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\meyerControl_historic_after_merge_v1.csv";
 	public static final String PANEL_ADMIN_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\panelAdmin_historic_after_merge_v1.csv";
 	public static final String DOCUMENT_GENERATOR_HISTORIC_CSV = "E:\\Projetos_Clip\\Method_Metrics\\Historic_Methods\\CSV_HISTORIC_V1\\CSV_AFTER_RENAME_MERGE\\documentGenerator_historic_after_merge_v1.csv";
+
+
+	public static  boolean isIntegerList(List<String> list) {
+		long quantIntegers = list.stream().filter(value -> StringUtils.isNumericSpace(value)).count();
+		return  quantIntegers == list.size();
+	}
+
+	public static String ignoreSpace(String text){
+		return text.replaceAll("\\s+","");
+	}
 }

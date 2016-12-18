@@ -4,6 +4,7 @@ import br.ic.ufal.easy.historic.minerator.CsvReader;
 import br.ic.ufal.easy.historic.minerator.CsvWriter;
 import br.ic.ufal.easy.historic.minerator.HistoricReader;
 import br.ic.ufal.easy.utils.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -16,12 +17,13 @@ public class ExtractMetricMinerator {
 
     CsvWriter writer;
 
-    public void minerateExtractMethod(){
+    public void minerateExtractMethod(String fileName){
         HistoricReader reader = new HistoricReader();
-        writer = new CsvWriter("" , ',', Charset.forName("ISO-8859-1"));
+        writer = new CsvWriter(fileName , ',', Charset.forName("ISO-8859-1"));
 
         try {
-              reader.retrieveHistoric(Utils.CLIP_HISTORIC_CSV);
+
+              reader.retrieveHistoric(Utils.CLIP_OCR_HISTORIC_CSV_TEST);
               int size = reader.getCsvRecords().size();
               for(int i = 0; i < size ; i++){
                   Map<String, String> historicPerLine = reader.getHistoric(i);
@@ -30,6 +32,8 @@ public class ExtractMetricMinerator {
                   findExtractMethod(className, methodName, historicPerLine);
 
               }
+
+              writer.close();
 
 
         } catch (IOException e) {
@@ -47,11 +51,40 @@ public class ExtractMetricMinerator {
         List<String> headerList = new ArrayList<>(historicPerLine.keySet());
         List<String> bodyList = new ArrayList<>(historicPerLine.values());
 
-        for (int i = 2; i < bodyList.size(); i++) {
-            String value = bodyList.get(i);
-            if(value != null && value.isEmpty()){
+        for (int i = 0; i < bodyList.size(); i++) {
+            String value1 = bodyList.get(i);
 
-                
+            if(value1 != null && !value1.isEmpty()){
+                if(i + 1 < bodyList.size()) {
+                    String value2 = bodyList.get(i + 1);
+
+
+                    if (StringUtils.isNumericSpace(value1) && StringUtils.isNumericSpace(value2)) {
+                        numberStats1 = Integer.valueOf(value1.replaceAll("\\s+",""));
+                        numberStats2 = Integer.valueOf(value2.replaceAll("\\s+",""));
+
+                        if (numberStats1 > numberStats2) {
+                            if (i < headerList.size() && i + 1 < headerList.size()) {
+                                try {
+                                    writer.write(className);
+                                    writer.write(methodName);
+
+                                    writer.write(headerList.get(i));
+                                    writer.write(bodyList.get(i));
+
+                                    writer.write(headerList.get(i + 1));
+                                    writer.write(bodyList.get(i + 1));
+
+                                    writer.endRecord();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }
