@@ -17,13 +17,18 @@ public class ExtractMetricMinerator {
 
     CsvWriter writer;
 
+
+    public static void main(String[] args) {
+      new ExtractMetricMinerator().minerateExtractMethod("panelAdmin_extract_method.csv");
+    }
+
     public void minerateExtractMethod(String fileName){
         HistoricReader reader = new HistoricReader();
         writer = new CsvWriter(fileName , ',', Charset.forName("ISO-8859-1"));
 
         try {
 
-              reader.retrieveHistoric(Utils.CLIP_OCR_HISTORIC_CSV_TEST);
+              reader.retrieveHistoric(Utils.PANEL_ADMIN_HISTORIC_CSV);
               int size = reader.getCsvRecords().size();
               for(int i = 0; i < size ; i++){
                   Map<String, String> historicPerLine = reader.getHistoric(i);
@@ -63,7 +68,7 @@ public class ExtractMetricMinerator {
                         numberStats1 = Integer.valueOf(value1.replaceAll("\\s+",""));
                         numberStats2 = Integer.valueOf(value2.replaceAll("\\s+",""));
 
-                        if (numberStats1 > numberStats2) {
+                        if (numberStats1 > numberStats2 && numberStats2 > 0 ) {
                             if (i < headerList.size() && i + 1 < headerList.size()) {
                                 try {
                                     writer.write(className);
@@ -90,9 +95,5 @@ public class ExtractMetricMinerator {
     }
 
 
-    public static void main(String[] args) {
-        //Passa o csv velho e o csv novo
-        //Vai varrendo as linhas do csv  e ve tem alguma queda, se tiver
-        //salva class, method, commit1, numeroStatements1, commit2, numeroStatemts2
-    }
+
 }

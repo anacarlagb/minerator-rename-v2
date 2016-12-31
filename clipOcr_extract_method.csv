@@ -1,0 +1,17 @@
+E:\Projetos_Clip\clip-ocr\src\test\java\br\com\goclip\WordIndexerTest.java,shouldFixText(),d52799ca76869fd2cba0da8aa6e499757925a515,5,d3e308a78b223b80b73b8a0e7e4c7fc21bca10c9,4
+E:\Projetos_Clip\clip-ocr\src\test\java\com\goclip\ThumbnailServiceTest.java,shouldGenerateAndUploadThumbnail(),85eaa69ea4fb705d5b56dccee301580bce49a5de,4,d52799ca76869fd2cba0da8aa6e499757925a515,3
+E:\Projetos_Clip\clip-ocr\src\main\java\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),caa05d15f808fbf6daa1f39d1bb146207e05b00e,4,cda198f459327a5616e23bbcb99586f91b98ab2c,3
+E:\Projetos_Clip\clip-ocr\src\test\java\br\com\goclip\TextExtractorTest.java,shouldCorrectlySeparateWords(),1a6cc113a7703746bfedb96494a1ecdf60d5f9d2,6,a70cb36c40a3e3753ca2c08e8f045bae3a83b340,5
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),85eaa69ea4fb705d5b56dccee301580bce49a5de,4,d52799ca76869fd2cba0da8aa6e499757925a515,3
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),d3e308a78b223b80b73b8a0e7e4c7fc21bca10c9,4,ce7fedb0112066a6630e67d1f4cc0a10a52d93bd,3
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),c925a90f5a0acf47cfe09f4a76d38339910c54cc,4,e957a665d8317efdf964f6965a7a0291bb7aac3b,3
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),89078a5cd2688f5767a8659711158ba1fa523ed2,4,121b43234a8f92c7d39b6d55e4117c79e819611c,3
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\thumbnail\ThumbnailService.java,convertImageToInputStream(BufferedImage image),caa05d15f808fbf6daa1f39d1bb146207e05b00e,4,cda198f459327a5616e23bbcb99586f91b98ab2c,3
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\sqsqueue\QueuePoller.java,"getText(String documentUrl,String thumbnailUrl)",4349439b1dbfe8e46044f44cbc9c39743a0a81cc,11,f03b32c14004611283ae8ef44942b142474e883e,6
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\sqsqueue\QueuePoller.java,"getText(String documentUrl,String thumbnailUrl)",2c1abf1137c2762901537a73c281fdf1995f34fa,11,1a6cc113a7703746bfedb96494a1ecdf60d5f9d2,6
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\ocr\providers\MockProvider.java,doOcr(List<BufferedImage> image),cda198f459327a5616e23bbcb99586f91b98ab2c,2,1ca5e547e69551962b8b59a5630b1f7b833f8b7e,1
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\model\OCRMessage.java,updateThumbnailVersionURI(),1a6cc113a7703746bfedb96494a1ecdf60d5f9d2,3,a70cb36c40a3e3753ca2c08e8f045bae3a83b340,2
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\Main.java,main(String[] args),833823ae96a6ea187ba718fa33e57e3190ca8b13,7,c5dc5ceecd9cd86988a017a6b29d0722d78499c2,6
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\Main.java,main(String[] args),92b500f1d3485a61800b36a46e04ead091349633,7,f5ab3c0dcc8aa096958548670839098e7cf4b5c8,6
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\Main.java,main(String[] args),a6c704e245297a9dbeb8e02d793259e281fdc8b5,9,ef53a8f7d712d8a620002838985de027d1a23f6e,6
+E:\Projetos_Clip\clip-ocr\src\main\java\br\com\goclip\Main.java,main(String[] args),57d4afc62efb0471980dd85037612755734d4aa3,9,c5e6a208b84a64137c315f3f8d86ece0e5c0bd66,6
