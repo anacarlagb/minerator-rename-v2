@@ -28,13 +28,16 @@ public class ExtractMetricMinerator {
 
         try {
 
-              reader.retrieveHistoric(Utils.PANEL_ADMIN_HISTORIC_CSV);
+            Set<Integer> validHistoricNumbers = reader.retrieveCompleteHistoric(Utils.PANEL_ADMIN_HISTORIC_CSV);
               int size = reader.getCsvRecords().size();
               for(int i = 0; i < size ; i++){
-                  Map<String, String> historicPerLine = reader.getHistoric(i);
-                  String className = historicPerLine.get(Utils.FILE);
-                  String methodName = historicPerLine.get(Utils.METHOD);
-                  findExtractMethod(className, methodName, historicPerLine);
+
+                  if(validHistoricNumbers.contains(i)) {
+                      Map<String, String> historicPerLine = reader.getHistoric(i);
+                      String className = historicPerLine.get(Utils.FILE);
+                      String methodName = historicPerLine.get(Utils.METHOD);
+                      findExtractMethod(className, methodName, historicPerLine);
+                  }
 
               }
 

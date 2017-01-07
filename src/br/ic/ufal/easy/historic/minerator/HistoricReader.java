@@ -27,27 +27,67 @@ public class HistoricReader {
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
 		FileReader fileReader = new FileReader(pathHistoric);
 		CSVParser csvFileParser;
+		csvFileParser = new CSVParser(fileReader, csvFileFormat);
+
+		methodMap = new HashMap<Integer, String>();
+     	csvRecords = csvFileParser.getRecords(); 
+     	for (int i = 0; i< csvRecords.size(); i++) {
+			CSVRecord record = (CSVRecord) csvRecords.get(i);
+			String method = record.get(Utils.METHOD);
+
+			methodMap.put(i, method);
+		}
+		parserHeader();
+	}
+
+	public Set<Integer> retrieveCompleteHistoric(String pathHistoric) throws IOException{
+		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
+		FileReader fileReader = new FileReader(pathHistoric);
+		CSVParser csvFileParser;
 
 		csvFileParser = new CSVParser(fileReader, csvFileFormat);
 
 		methodMap = new HashMap<Integer, String>();
-	
-		
-     	csvRecords = csvFileParser.getRecords(); 
-     	for (int i = 0; i< csvRecords.size(); i++){
-             CSVRecord record = (CSVRecord) csvRecords.get(i);
-             String method = record.get(Utils.METHOD);
-             
-             methodMap.put(i, method);
-           
-           
-     	}
-     	
-     	
-    
-     	parserHeader();
-     	historicModified = new LinkedList<>();
-     	   
+
+
+		csvRecords = csvFileParser.getRecords();
+		Set<Integer> validHistoric = new HashSet<>();
+
+		for (int i = 0; i < csvRecords.size(); i++){
+			CSVRecord record = (CSVRecord) csvRecords.get(i);
+			if(record.size() > 1) {
+
+				String method = record.get(Utils.METHOD);
+				methodMap.put(i, method);
+				validHistoric.add(i);
+			}
+
+
+		}
+
+		parserHeader();
+		historicModified = new LinkedList<>();
+
+		return validHistoric;
+
+	}
+
+	private void parserHeader(){
+
+		CSVRecord headerRecord = (CSVRecord) csvRecords.get(0);
+		String headerHistoric = headerRecord.toString();
+		String historicStart = Utils.VALUES_INDICATOR + Utils.OPEN_VALUES;
+		int valuesIndex = headerHistoric.indexOf(historicStart);
+		String valuesPartial = headerHistoric.substring(valuesIndex + historicStart.length());
+		String methodEnd = Utils.METHOD + Utils.SEPARATOR;
+		int methodIndexLast = valuesPartial.lastIndexOf(methodEnd);
+		int valuesEndIndex = valuesPartial.indexOf(Utils.CLOSE_VALUES);
+		String headerValue = valuesPartial.substring(methodIndexLast +  methodEnd.length(), valuesEndIndex);
+
+		headerList = new LinkedList<>();
+		headerList.add(headerRecord.get(Utils.FILE));
+		headerList.add(headerRecord.get(Utils.METHOD));
+		headerList.addAll(Arrays.asList(headerValue.split("\\s*,\\s*")));
 	}
 	
 	public Map<String, String> getHistoric(String nameMethod){
@@ -114,12 +154,15 @@ public class HistoricReader {
 
 		List<String> valueList = Arrays.asList(historicValue.split("\\s*,\\s*"));
 
-
 		if( !Utils.isIntegerList(valueList)) {
-			valueList = Arrays.asList("0", "0", "0", "0");
+			if(headerList != null ){
+
+				valueList = new LinkedList<>();
+				for (int i = 1; i < headerList.size(); i++) {
+					valueList.add("0");
+				}
+			}
 		}
-
-
 
         List<String> historicList = new LinkedList<>();
 		historicList.add(record.get(Utils.FILE));
@@ -131,30 +174,7 @@ public class HistoricReader {
     	
     }
 	
-	private void parserHeader(){
-		
-		CSVRecord headerRecord = (CSVRecord) csvRecords.get(0);
-		String headerHistoric = headerRecord.toString();
-		
-		String historicStart = Utils.VALUES_INDICATOR + Utils.OPEN_VALUES;
-		
-		int valuesIndex = headerHistoric.indexOf(historicStart);
 
-		String valuesPartial = headerHistoric.substring(valuesIndex + historicStart.length());
-
-		String methodEnd = Utils.METHOD + Utils.SEPARATOR;
-		
-		int methodIndexLast = valuesPartial.lastIndexOf(methodEnd);
-		int valuesEndIndex = valuesPartial.indexOf(Utils.CLOSE_VALUES);
-
-		String headerValue = valuesPartial.substring(methodIndexLast +  methodEnd.length(), valuesEndIndex);
-
-		headerList = new LinkedList<>();
-		headerList.add(headerRecord.get(Utils.FILE));
-		headerList.add(headerRecord.get(Utils.METHOD));
-		headerList.addAll(Arrays.asList(headerValue.split("\\s*,\\s*")));
-
-	}
 	
 	public Map<String, String> getHistoric(int numberHistoric){
 
